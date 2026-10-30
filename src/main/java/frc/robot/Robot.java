@@ -28,29 +28,28 @@ public class Robot extends TimedRobot {
 
     DifferentialDrive drive1 = new DifferentialDrive(left1, right1);
 
+    SparkMaxConfig left1Config = new SparkMaxConfig();
+    SparkMaxConfig left2Config = new SparkMaxConfig();
+
+    SparkMaxConfig right1Config = new SparkMaxConfig();
+    SparkMaxConfig right2Config = new SparkMaxConfig();
 
     public Robot() {
-        SparkMaxConfig left1Config = new SparkMaxConfig();
-        SparkMaxConfig left2Config = new SparkMaxConfig();
-
-        left2Config.follow(left1);
-        left2Config.inverted(false);
-
         left1.configure(left1Config, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters);
         left2.configure(left2Config, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters);
 
-        SparkMaxConfig right1Config = new SparkMaxConfig();
-        SparkMaxConfig right2Config = new SparkMaxConfig();
-
-        right2Config.follow(right1);
-        right2Config.inverted(false);
+        left2Config.follow(left1);
+        left1Config.inverted(true);
 
         right1.configure(right1Config, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters);
         right2.configure(right2Config, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters);
+
+        right2Config.follow(right1);
+        right1Config.inverted(false);
     }
 
     /** This function is run once each time the robot enters autonomous mode. */
@@ -68,7 +67,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during teleoperated mode. */
     @Override
     public void teleopPeriodic() {
-        drive1.arcadeDrive(xbox.getLeftY(), xbox.getRightY());
+        drive1.tankDrive(xbox.getLeftY(), xbox.getRightY());
     }
 
     /** This function is called once each time the robot enters test mode. */
