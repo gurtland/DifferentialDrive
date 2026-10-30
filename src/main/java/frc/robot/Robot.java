@@ -35,21 +35,21 @@ public class Robot extends TimedRobot {
     SparkMaxConfig right2Config = new SparkMaxConfig();
 
     public Robot() {
+        left2Config.follow(left1);
+        left1Config.inverted(true);
+
         left1.configure(left1Config, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters);
         left2.configure(left2Config, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters);
 
-        left2Config.follow(left1);
-        left1Config.inverted(true);
+        right2Config.follow(right1);
+        right1Config.inverted(false);
 
         right1.configure(right1Config, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters);
         right2.configure(right2Config, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters);
-
-        right2Config.follow(right1);
-        right1Config.inverted(false);
     }
 
     /** This function is run once each time the robot enters autonomous mode. */
